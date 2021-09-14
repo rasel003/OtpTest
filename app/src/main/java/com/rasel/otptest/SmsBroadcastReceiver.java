@@ -9,11 +9,13 @@ import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.Status;
 
-public class SmsBroadcastReceiver extends BroadcastReceiver{
+public class SmsBroadcastReceiver extends BroadcastReceiver {
+
     SmsBroadcastReceiverListener smsBroadcastReceiverListener;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction() == SmsRetriever.SMS_RETRIEVED_ACTION) {
+        if (intent.getAction().equals(SmsRetriever.SMS_RETRIEVED_ACTION)) {
             Bundle extras = intent.getExtras();
             Status smsRetrieverStatus = (Status) extras.get(SmsRetriever.EXTRA_STATUS);
             switch (smsRetrieverStatus.getStatusCode()) {
@@ -27,6 +29,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver{
             }
         }
     }
+
     public interface SmsBroadcastReceiverListener {
         void onSuccess(Intent intent);
         void onFailure();
